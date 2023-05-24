@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "libalgoritmos.h"
+#include "./libs/algorithms.h"
 
 void testGaussElim()
 {

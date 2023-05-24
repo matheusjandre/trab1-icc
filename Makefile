@@ -1,23 +1,36 @@
 # Makefile base - Matheus Jandre
 COMP = gcc
-CFLAGS = -Wall -std=c99
+CFLAGS = -Wall -std=c99 -lm
 
-PROGRAM_NAME = pontoscriticos
+TARGET = pontoscriticos
 
-DEP = 
-
+LIB = ./libs
 TMP = ./tmp
 OBJ = ./obj
 
-all: $(DEP)
-	@$(COMP) $(CFLAGS) $(OBJ)/* main.c -o $(PROGRAM_NAME)
-	@echo "O executável foi gerado."
-	@echo "Executar: ./$(PROGRAM_NAME) -o <arquivo_de_saida>"
+SOURCES = $(wildcard *.c $(LIB)/*.c)
+OBJECTS = $(SOURCES: .c=.o) 
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(COMP) $(CCFLAGS) -o $@ $^
+
+# all: $(DEP)
+# @$(COMP) $(CFLAGS) $(OBJ)/* main.c -o $(PROGRAM_NAME)
+# @echo "O executável foi gerado."
+# @echo "Executar: ./$(PROGRAM_NAME) -o <arquivo_de_saida>"
 
 # OBJETOS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 #lib.o: lib.h
 #	$(COMP) $(CFLAGS) -c lib.c
+
+%.o: %.c %.h
+	$(COMP) $(CCFLAGS) -c $<
+
+%.o: %.c
+	$(COMP) $(CCFLAGS) -c $<
 
 # COMANDOS PARA LIMPEZA -=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

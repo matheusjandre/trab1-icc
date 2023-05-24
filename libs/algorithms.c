@@ -1,4 +1,4 @@
-#include "libalgoritmos.h"
+#include "algorithms.h"
 
 // ALGORITHMS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
