@@ -1,6 +1,6 @@
 # Makefile base - Matheus Jandre
 COMP = gcc
-CFLAGS = -Wall -std=c99 -lm
+CFLAGS = -Wall -std=c99 -lm -DLIKWID_PERFMON -I /usr/local/include -L /usr/local/lib -llikwid
 
 TARGET = pontoscriticos
 
