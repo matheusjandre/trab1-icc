@@ -8,7 +8,7 @@ typedef struct tFunc
 {
 	int n;
 	int k;
-	char *func;
+	char *functionString;
 	double *values;
 	char **variables;
 } tFunc;
@@ -23,6 +23,6 @@ double *gaussElim(double **A, double *b, unsigned int n);
 
 double *testRetroSubs();
 
-tFunc *almostRosenbrock(int n, int k, int x);
+tFunc *createRosenbrockFunction(int n, int k, double x);
 
 #endif

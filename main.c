@@ -6,14 +6,15 @@
 // MAIN -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 int main(int argc, char **argv)
 {
-	int t = 1;
-	tFunc *f = almostRosenbrock(t, t, t);
+	int t = 4;
+	tFunc *f = createRosenbrockFunction(t, t, 1.2);
 
-	for(int i = 0; i < 3; i++)
+	printf("%s\n", f->functionString);
+
+	for(int i = 0; i < t; i++)
 	{
-		printf("%s\n", f->func);
+		printf("%s = %lf\n", f->variables[i], f->values[i]);
 	}
-
 	// testGaussElim();
 	
 	return 0;

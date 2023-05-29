@@ -1,6 +1,6 @@
 # Makefile base - Matheus Jandre
 COMP = gcc
-CFLAGS = -Wall -std=c99 -lm
+CCFLAGS = -Wall -std=c99 -lm
 
 TARGET = pontoscriticos
 
