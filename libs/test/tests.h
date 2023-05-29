@@ -5,4 +5,6 @@ void testGaussElim();
 
 void testTrocaLinha();
 
+double *testRetroSubs();
+
 #endif
