@@ -78,7 +78,7 @@ double *gaussElim(double **A, double *b, unsigned int n)
 char *genVarStr(int i)
 {
 	char *variable;
-	int size = 5;
+	int size = 16;
 
 	if (!(variable = malloc(sizeof(char) * size)))
 		return NULL;
@@ -146,14 +146,12 @@ tFunc *createRosenbrockFunction(int n, int k, double x)
 		return NULL;
 
 	func->values = malloc(sizeof(double) * n);
-	func->variables = malloc(sizeof(char) * n);
 	func->n = n;
 	func->k = k;
 
 	for (int i = 0; i < n; i++)
 	{
-		func->variables[i] = genVarStr(i + 1);
-		func->values[i] = 1.2;
+		func->values[i] = x;
 	}
 
 	func->functionString = createFunctionString(n, k);

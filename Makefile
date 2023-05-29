@@ -1,6 +1,6 @@
 # Makefile base - Matheus Jandre
 COMP = gcc
-CCFLAGS = -Wall -std=c99 -lm
+CCFLAGS = -Wall -std=c99
 
 TARGET = pontoscriticos
 
@@ -14,7 +14,7 @@ OBJECTS = $(SOURCES: .c=.o)
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(COMP) $(CCFLAGS) -o $@ $^
+	$(COMP) $(CCFLAGS) -o $@ $^ -lm -lmatheval
 
 # OBJETOS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
