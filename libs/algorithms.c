@@ -1,4 +1,5 @@
 #include "algorithms.h"
+#include "math.h"
 
 // ALGORITHMS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -37,7 +38,7 @@ int maxRow(double **A, int j, int n)
 	int row = j;
 
 	for(int i = j+1; i < n; i++)
-		if(A[i][j] > A[row][j])
+		if(fabs(A[i][j]) > fabs(A[row][j]))
 			row = i;
 		
 	return row;

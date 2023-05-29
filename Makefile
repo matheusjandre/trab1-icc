@@ -8,7 +8,7 @@ LIB = ./libs
 TMP = ./tmp
 OBJ = ./obj
 
-SOURCES = $(wildcard *.c $(LIB)/*.c)
+SOURCES = $(wildcard *.c $(LIB)/*.c $(LIB)/*/*.c)
 OBJECTS = $(SOURCES: .c=.o) 
 
 all: $(TARGET)
@@ -16,21 +16,12 @@ all: $(TARGET)
 $(TARGET): $(OBJECTS)
 	$(COMP) $(CCFLAGS) -o $@ $^
 
-# all: $(DEP)
-# @$(COMP) $(CFLAGS) $(OBJ)/* main.c -o $(PROGRAM_NAME)
-# @echo "O executável foi gerado."
-# @echo "Executar: ./$(PROGRAM_NAME) -o <arquivo_de_saida>"
-
 # OBJETOS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-#lib.o: lib.h
-#	$(COMP) $(CFLAGS) -c lib.c
-
 %.o: %.c %.h
-	$(COMP) $(CCFLAGS) -c $<
+	@$(COMP) $(CCFLAGS) -c $<
 
-%.o: %.c
-	$(COMP) $(CCFLAGS) -c $<
+# %.o: %.c @$(COMP) $(CCFLAGS) -c $<
 
 # COMANDOS PARA LIMPEZA -=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -39,5 +30,5 @@ temp:
 	@echo "Todos os arquivos temporários foram removidos."
 
 purge:
-	@rm $(PROGRAM_NAME)
+	@rm $(TARGET)
 	@echo "O executável do programa foi removido."
