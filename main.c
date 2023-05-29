@@ -1,39 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <likwid.h>
+#include <matheval.h>
+#include "./libs/test/tests.h"
 #include "./libs/algorithms.h"
 #include "./libs/report.h"
 
-double * initializeVariablesArray(int n, double x)
-{
-	double * array;
-
-	if(!(array=(malloc(sizeof(double) * n)))) 
-	{
-		return NULL;
-	}
-
-	for(int i = 0; i < n; i++) 
-	{
-		array[i] = x;
-	}
-
-	return array;
-}
-
 // MAIN -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 int main(int argc, char **argv)
-{	
-	int n, k, max_iter, hess_steps;
-	double x, epsilon;
+{
+	void *function;
+	char **names;
+	int count;
+	int n = 3, k = 5;
+	double result;
+	tFunc *f = createRosenbrockFunction(n, k, 4);
 
-	scanf("%d %d %ld %ld %d %d", n, k, x, epsilon, max_iter, hess_steps);
-	
-	LIKWID_MARKER_INIT;
+	printf("%s\n", f->functionString);
 
+	for (int i = 0; i < n; i++)
+	{
+		printf("%lf\n", f->values[i]);
+	}
 
+	function = evaluator_create(f->functionString);
 
-	LIKWID_MARKER_CLOSE;
+	evaluator_get_variables(function, &names, &count);
+	printf("\n");
+	for (int i = 0; i < count; i++)
+		printf("%s ", names[i]);
+	printf("\n");
+
+	result = evaluator_evaluate(function, n, names, f->values);
+
+	printf("RESULTADO DESSA PORRA DO CARAI: %lf\n", result);
 
 	return 0;
 }
