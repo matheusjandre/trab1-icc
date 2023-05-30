@@ -10,7 +10,6 @@ typedef struct tFunc
 	int k;
 	char *functionString;
 	double *values;
-	char **variables;
 } tFunc;
 
 void retroSubs(double **A, double *b, double *x, unsigned int n);
@@ -18,6 +17,8 @@ void retroSubs(double **A, double *b, double *x, unsigned int n);
 void shiftRow(double **A, double *b, int l1, int l2, int n);
 
 int maxRow(double **A, int j, int n);
+
+double normalArray(double *array, int n);
 
 double *gaussElim(double **A, double *b, unsigned int n);
 
