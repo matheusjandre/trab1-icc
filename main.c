@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <likwid.h>
 #include <matheval.h>
 #include <likwid.h>
 #include "./libs/test/tests.h"
 #include "./libs/algorithms.h"
+<<<<<<< HEAD
 #include "./libs/newton.h"
+=======
+#include "./libs/report.h"
+>>>>>>> 73e26c32a7d0c1441c02b7d5d2f0fbf5d6857668
 
 // MAIN -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 int main(int argc, char **argv)
