@@ -143,10 +143,12 @@ double normalArray(double * array, int n)
 	int index;
 	double normal;
 
+	normal = fabs(array[0]);
+
 	for(index = 0; index < n; index++)
 	{
-		if(array[index] > normal)
-			normal = array[index];
+		if(abs(array[index]) > normal)
+			normal = abs(array[index]);
 	}
 
 	return normal;
