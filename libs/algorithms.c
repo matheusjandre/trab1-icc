@@ -138,6 +138,20 @@ char *createFunctionString(int n, int k)
 	return function;
 }
 
+double normalArray(double * array, int n)
+{
+	int index;
+	double normal;
+
+	for(index = 0; index < n; index++)
+	{
+		if(array[index] > normal)
+			normal = array[index];
+	}
+
+	return normal;
+}
+
 tFunc *createRosenbrockFunction(int n, int k, double x)
 {
 	tFunc *func;
