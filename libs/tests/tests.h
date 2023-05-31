@@ -1,2 +1,0 @@
-void testGaussElim();
-void testTrocaLinha();

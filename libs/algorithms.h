@@ -12,6 +12,8 @@ typedef struct tFunc
 	double *values;
 } tFunc;
 
+void factorizationLU(double **A, double *b, int n);
+
 void retroSubs(double **A, double *b, double *x, unsigned int n);
 
 void shiftRow(double **A, double *b, int l1, int l2, int n);

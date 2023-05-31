@@ -1,6 +1,6 @@
 #include "newton.h"
 
-void calcularHessiana(tFunc *func, double *hessiane)
+void calculeGradiente(tFunc *func, void * function, double *gradient)
 {
     int iter;
     void **derivatives;
@@ -18,11 +18,35 @@ void calcularHessiana(tFunc *func, double *hessiane)
     for (iter = 0; iter < func->n; iter++)
     {
         derivatives[iter] = evaluator_derivative(function, names[iter]);
-        hessiane[iter] = evaluator_evaluate(derivatives[iter], func->n, names, func->values);
+        gradient[iter] = evaluator_evaluate(derivatives[iter], func->n, names, func->values);
+    }
+
+    free(derivatives);
+    free(names);
+    free(function);
+}
+
+void calculeDerivatives(tFunc *func, double *gradient, double **hessian)
+{
+    void * derivative;
+    void *function;
+    char **names;
+
+    function = evaluator_create(func->functionString);
+    evaluator_get_variables(function, &names, &func->n);
+
+    for(int i = 0; i < func->n; i++)
+    {
+        derivative = evaluator_derivative(function, names[i]);
+        gradient[i] = evaluator_evaluate(derivative, func->n, names, func->values);
+        for(int j = 0; j < func->n; j++)
+        {
+            hessian[i][j] = evaluator_evaluate(evaluator_derivative(derivative, names[j]), func->n, names, func->values);
+        }       
     }
 }
 
-void metodoBroyden(tFunc func, double * hessiane, double * delta)
+void metodoBroyden(tFunc *func, double * hessian, double * delta)
 {
 
 }
@@ -30,12 +54,12 @@ void metodoBroyden(tFunc func, double * hessiane, double * delta)
 double *quasiNewton(tFunc *func, int max_iter, double epsilon, int *qntIter)
 {
     int iter, n;
-    double *hessiane, *values, *delta;
+    double *hessian, *values, *delta;
     void *function;
     char **names;
     n = func->n;
 
-    if (!(hessiane = malloc(sizeof(double) * n)) || !(values = malloc(sizeof(double) * max_iter)) || !(delta = malloc(sizeof(double) * n)))
+    if (!(hessian = malloc(sizeof(double) * n * n)) || !(values = malloc(sizeof(double) * max_iter)) || !(delta = malloc(sizeof(double) * n)))
     {
         return NULL;
     }
@@ -57,7 +81,7 @@ double *quasiNewton(tFunc *func, int max_iter, double epsilon, int *qntIter)
 
         for (int j = 0; j < n; j++)
         {
-            delta[j] = -fabs(values[iter]) / hessiane[j];
+            delta[j] = -fabs(values[iter]) / hessian[j];
             func->values[j] = func->values[j] + delta[j];
         }
 
@@ -66,11 +90,11 @@ double *quasiNewton(tFunc *func, int max_iter, double epsilon, int *qntIter)
             return values;
         }
 
-        metodoBroyden(func, hessiane, delta);
+        metodoBroyden(func, hessian, delta);
         iter++;
     }
 
-    free(hessiane);
+    free(hessian);
 
     return values;
 }
@@ -78,15 +102,18 @@ double *quasiNewton(tFunc *func, int max_iter, double epsilon, int *qntIter)
 double *newtonModificado(tFunc *func, int max_iter, int hess_steps, double epsilon, int *qntIter)
 {
     int iter, n;
-    double *hessiane, *values, *delta;
+    double **hessian, *values, *delta, *gradient;
     void *function;
     char **names;
     n = func->n;
 
-    if (!(hessiane = malloc(sizeof(double) * n)) || !(values = malloc(sizeof(double) * max_iter)) || !(delta = malloc(sizeof(double) * n)))
+    if (!(hessian = malloc(sizeof(double) * n * n)) || !(values = malloc(sizeof(double) * max_iter)) || !(gradient = malloc(sizeof(double) * n)) || !(delta = malloc(sizeof(double) * n)))
     {
         return NULL;
     }
+
+    for(int i = 0; i < n; i++)
+        hessian[i] = malloc(sizeof(double) * n);
 
     function = evaluator_create(func->functionString);
     evaluator_get_variables(function, &names, &n);
@@ -97,11 +124,12 @@ double *newtonModificado(tFunc *func, int max_iter, int hess_steps, double epsil
         (*qntIter)++;
         if (iter % hess_steps == 0)
         {
-            calcularHessiana(func, hessiane);
         }
 
+        calculeDerivatives(func, gradient, hessian);
         values[iter] = evaluator_evaluate(function, n, names, func->values);
-
+        delta = gaussElim(hessian, gradient, n);
+        
         if (fabs(values[iter]) < epsilon)
         {
             return values;
@@ -109,7 +137,6 @@ double *newtonModificado(tFunc *func, int max_iter, int hess_steps, double epsil
 
         for (int j = 0; j < n; j++)
         {
-            delta[j] = -fabs(values[iter]) / hessiane[j];
             func->values[j] = func->values[j] + delta[j];
         }
 
@@ -121,7 +148,7 @@ double *newtonModificado(tFunc *func, int max_iter, int hess_steps, double epsil
         iter++;
     }
 
-    free(hessiane);
+    free(hessian);
 
     return values;
 }

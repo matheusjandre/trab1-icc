@@ -7,6 +7,6 @@
 #include "algorithms.h"
 
 double * newtonModificado(tFunc * func, int max_iter, int hess_steps, double epsilon, int *qntIter);
-double * quasiNewton(tFunc *func, int max_iter, int hess_steps, double epsilon, int *qntIter);
+double * quasiNewton(tFunc *func, int max_iter, double epsilon, int *qntIter);
 
 #endif
