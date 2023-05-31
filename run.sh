@@ -2,7 +2,7 @@
 
 #n k x eps max_iter hess_steps
 
-while read line; 
-do 
-    echo $line;
+while read line;
+do
+    echo $line | ./pontoscriticos;
 done
