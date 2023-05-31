@@ -165,12 +165,15 @@ tFunc *createRosenbrockFunction(int n, int k, double x)
 	func->n = n;
 	func->k = k;
 
+	func->derivatives = malloc(sizeof(void) * n);
+	func->function = evaluator_create(createFunctionString(n, k));
+	evaluator_get_variables(func->function, &func->names, &func->n);
+
 	for (int i = 0; i < n; i++)
 	{
 		func->values[i] = x;
+		func->derivatives[i] = evaluator_derivative(func->function, genVarStr(i + 1));
 	}
-
-	func->functionString = createFunctionString(n, k);
 
 	return func;
 }

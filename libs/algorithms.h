@@ -3,12 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <matheval.h>
 
 typedef struct tFunc
 {
 	int n;
 	int k;
-	char *functionString;
+	void *function;
+	void **derivatives;
+	char **names;
 	double *values;
 } tFunc;
 
